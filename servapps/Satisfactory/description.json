@@ -1,0 +1,9 @@
+{
+  "name": "Satisfactory",
+  "longDescription": "<p>Satisfactory is a first-person open-world factory building game from Coffee Stain Studios. This ServApp deploys a dedicated multiplayer server using the community <code>wolveix/satisfactory-server</code> image.</p><p>Configure game port, API port, max players, Steam beta branch, and save path at install time. Expect high memory use; 8GB+ RAM is recommended for a stable dedicated world.</p>",
+  "description": "Dedicated Satisfactory multiplayer factory server with installer options for ports, players, and persistent saves.",
+  "tags": ["game servers", "satisfactory", "multiplayer", "factory", "coffee stain", "xenith", "udp"],
+  "repository": "https://github.com/wolveix/satisfactory-server",
+  "image": "https://hub.docker.com/r/wolveix/satisfactory-server",
+  "supported_architectures": ["amd64"]
+}
