@@ -9,3 +9,12 @@ Fork this repo, and then setup the config.json file with your own data. This use
 You can add your own app in the folder, either using cosmos-compose.json files, or docker-compose.yml files.
 
 For example, this repo is `https://github.com/Exxzo/cosmos-xcore-apps` but pages are under `https://Exxzo.github.io/cosmos-xcore-apps`. In order to add this repo to Cosmos you need to add `https://Exxzo.github.io/cosmos-xcore-apps/servapps.json` to the list of sources in the Cosmos settings.
+
+## Xenith Lab game servers
+
+Initial Cosmo marketplace conversions from Xenith Lab standalone Docker Compose stacks:
+
+- `servapps/Palworld` — dedicated Palworld server (`thijsvanloef/palworld-server-docker`)
+- `servapps/Satisfactory` — dedicated Satisfactory server (`wolveix/satisfactory-server`)
+
+Both use Whiskers installer forms so ports, player limits, passwords, and data paths can be set at install time in Cosmos.

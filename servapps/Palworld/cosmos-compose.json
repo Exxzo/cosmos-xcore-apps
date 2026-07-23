@@ -1,0 +1,138 @@
+{
+  "cosmos-installer": {
+    "form": [
+      {
+        "name": "serverName",
+        "label": "What do you want to call this Palworld server?",
+        "initialValue": "Xenith Palworld",
+        "type": "text"
+      },
+      {
+        "name": "serverDescription",
+        "label": "Server description shown in the server browser",
+        "initialValue": "Palworld dedicated server",
+        "type": "text"
+      },
+      {
+        "name": "port",
+        "label": "Game UDP port (must be open/forwarded)",
+        "initialValue": "8211",
+        "type": "text"
+      },
+      {
+        "name": "queryPort",
+        "label": "Steam query UDP port (needed for community listing)",
+        "initialValue": "27015",
+        "type": "text"
+      },
+      {
+        "name": "restApiPort",
+        "label": "REST API TCP port (do not port-forward publicly)",
+        "initialValue": "8212",
+        "type": "text"
+      },
+      {
+        "name": "players",
+        "label": "Max players",
+        "initialValue": "16",
+        "type": "text"
+      },
+      {
+        "name": "serverPassword",
+        "label": "Join password (leave empty for open server)",
+        "initialValue": "",
+        "type": "text"
+      },
+      {
+        "name": "community",
+        "label": "Show in community server list? (use with a join password)",
+        "initialValue": "false",
+        "type": "select",
+        "options": [
+          ["false", "No"],
+          ["true", "Yes"]
+        ]
+      },
+      {
+        "name": "crossplay",
+        "label": "Crossplay platforms",
+        "initialValue": "(Steam,Xbox,PS5,Mac)",
+        "type": "text"
+      },
+      {
+        "name": "dataPath",
+        "label": "Where should server data be stored?",
+        "initialValue": "{DefaultDataPath}/palworld",
+        "type": "text"
+      },
+      {
+        "name": "puid",
+        "label": "Host user ID (PUID)",
+        "initialValue": "1000",
+        "type": "text"
+      },
+      {
+        "name": "pgid",
+        "label": "Host group ID (PGID)",
+        "initialValue": "1000",
+        "type": "text"
+      }
+    ],
+    "post-install": [
+      {
+        "type": "info",
+        "label": "Admin password was auto-generated and stored in the ADMIN_PASSWORD environment variable on the container."
+      },
+      {
+        "type": "warning",
+        "label": "Open UDP ports for the game and Steam query. Do not publicly expose the REST API port. Full options: https://github.com/thijsvanloef/palworld-server-docker"
+      }
+    ]
+  },
+  "minVersion": "0.9.0",
+  "services": {
+    "{ServiceName}": {
+      "image": "thijsvanloef/palworld-server-docker:latest",
+      "container_name": "{ServiceName}",
+      "restart": "unless-stopped",
+      "stop_grace_period": 30,
+      "environment": [
+        "PUID={Context.puid}",
+        "PGID={Context.pgid}",
+        "PORT={Context.port}",
+        "PLAYERS={Context.players}",
+        "SERVER_PASSWORD={Context.serverPassword}",
+        "REST_API_ENABLED=true",
+        "REST_API_PORT={Context.restApiPort}",
+        "TZ=auto",
+        "ADMIN_PASSWORD={Passwords.0}",
+        "COMMUNITY={Context.community}",
+        "SERVER_NAME={Context.serverName}",
+        "SERVER_DESCRIPTION={Context.serverDescription}",
+        "CROSSPLAY_PLATFORMS={Context.crossplay}",
+        "MULTITHREADING=true",
+        "UPDATE_ON_BOOT=true",
+        "LOG_LEVEL=INFO"
+      ],
+      "ports": [
+        "{Context.port}:{Context.port}/udp",
+        "{Context.queryPort}:{Context.queryPort}/udp",
+        "{Context.restApiPort}:{Context.restApiPort}/tcp"
+      ],
+      "labels": {
+        "cosmos-auto-update": "true",
+        "cosmos-persistent-env": "ADMIN_PASSWORD, SERVER_PASSWORD",
+        "cosmos-icon": "https://exxzo.github.io/cosmos-xcore-apps/servapps/Palworld/icon.png",
+        "xenith.lab": "game-server",
+        "xenith.app": "palworld"
+      },
+      "volumes": [
+        {
+          "source": "{Context.dataPath}",
+          "target": "/palworld",
+          "type": "bind"
+        }
+      ]
+    }
+  }
+}

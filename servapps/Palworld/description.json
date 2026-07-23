@@ -1,0 +1,9 @@
+{
+  "name": "Palworld",
+  "longDescription": "<p>Palworld is an open-world survival crafting game where you collect, breed, and battle creatures called Pals. This ServApp deploys a dedicated multiplayer server using the community <code>thijsvanloef/palworld-server-docker</code> image.</p><p>Configure server name, player count, passwords, crossplay platforms, and data path at install time. UDP game and Steam query ports are published for clients; the REST API port is exposed for local administration and should not be forwarded publicly.</p>",
+  "description": "Dedicated Palworld multiplayer server with installer options for ports, players, passwords, and persistent world data.",
+  "tags": ["game servers", "palworld", "multiplayer", "survival", "pocketpair", "xenith", "udp"],
+  "repository": "https://github.com/thijsvanloef/palworld-server-docker",
+  "image": "https://hub.docker.com/r/thijsvanloef/palworld-server-docker",
+  "supported_architectures": ["amd64"]
+}
